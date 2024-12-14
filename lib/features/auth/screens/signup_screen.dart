@@ -70,96 +70,98 @@ class _RegScreenState extends State<SignupScreen> {
           padding: const EdgeInsets.all(20),
           child: Form(
             key: keys,
-            child: Column(
-              children: [
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width / 2,
-                  child: TextFormField(
-                    
-                    keyboardType: TextInputType.emailAddress,
-                    autocorrect: false,
-                    controller: login,
-                    validator: (login) => login != null && !EmailValidator.validate(login) ? 'Введите верную почту' : null,
-                    decoration:  InputDecoration(
-                      hintText: 'Введите почту',
-                      border: OutlineInputBorder(
-                        borderRadius:  BorderRadius.circular(30),
-                        borderSide: const BorderSide(width: 2),)
+            child: Center(
+              child: Column(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width / 2,
+                    child: TextFormField(
+                      
+                      keyboardType: TextInputType.emailAddress,
+                      autocorrect: false,
+                      controller: login,
+                      validator: (login) => login != null && !EmailValidator.validate(login) ? 'Введите верную почту' : null,
+                      decoration:  InputDecoration(
+                        hintText: 'Введите почту',
+                        border: OutlineInputBorder(
+                          borderRadius:  BorderRadius.circular(30),
+                          borderSide: const BorderSide(width: 2),)
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width / 2,
-                  child: TextFormField(
-                    autocorrect: false,
-                    keyboardType: TextInputType.visiblePassword,
-                    controller: pass,
-                    obscureText: passView,
-                    validator: (pass) => pass != null && pass.length <= 5 ? 'Пароль должен быть больше 5 символов' : null,
-                    decoration: InputDecoration(
-                      hintText: 'Введите пароль',
-                      border: OutlineInputBorder(
-                        borderRadius:  BorderRadius.circular(30),
-                        borderSide: const BorderSide(width: 2),),
-                      suffix: InkWell(
-                        onTap: switchViewPass,
-                        child: Icon(
-                          passView ? Icons.visibility_off : Icons.visibility,
-                          color: Colors.black,
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width / 2,
+                    child: TextFormField(
+                      autocorrect: false,
+                      keyboardType: TextInputType.visiblePassword,
+                      controller: pass,
+                      obscureText: passView,
+                      validator: (pass) => pass != null && pass.length <= 5 ? 'Пароль должен быть больше 5 символов' : null,
+                      decoration: InputDecoration(
+                        hintText: 'Введите пароль',
+                        border: OutlineInputBorder(
+                          borderRadius:  BorderRadius.circular(30),
+                          borderSide: const BorderSide(width: 2),),
+                        suffix: InkWell(
+                          onTap: switchViewPass,
+                          child: Icon(
+                            passView ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  width: MediaQuery.sizeOf(context).width / 2,
-                  child: TextFormField(
-                    autocorrect: false,
-                    keyboardType: TextInputType.visiblePassword,
-                    controller: pass2,
-                    obscureText: passView2,
-                    validator: (pass2) => pass2 != null && pass2.length <= 5 ? 'Пароль должен быть больше 5 символов' : null,
-                    decoration: InputDecoration(
-                      hintText: 'Введите пароль',
-                      border: OutlineInputBorder(
-                        borderRadius:  BorderRadius.circular(30),
-                        borderSide: const BorderSide(width: 2),),
-                      suffix: InkWell(
-                        onTap: switchViewPass2,
-                        child: Icon(
-                          passView ? Icons.visibility_off : Icons.visibility,
-                          color: Colors.black,
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width / 2,
+                    child: TextFormField(
+                      autocorrect: false,
+                      keyboardType: TextInputType.visiblePassword,
+                      controller: pass2,
+                      obscureText: passView2,
+                      validator: (pass2) => pass2 != null && pass2.length <= 5 ? 'Пароль должен быть больше 5 символов' : null,
+                      decoration: InputDecoration(
+                        hintText: 'Введите пароль',
+                        border: OutlineInputBorder(
+                          borderRadius:  BorderRadius.circular(30),
+                          borderSide: const BorderSide(width: 2),),
+                        suffix: InkWell(
+                          onTap: switchViewPass2,
+                          child: Icon(
+                            passView ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                BlocBuilder<AuthCubit, AuthState>(
-                  builder: (context, state) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        if (login.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(MySnackbar.mySnackbar('Введите почту'));
-                        } else if (pass.text.isEmpty || pass2.text.isEmpty) {
-                          ScaffoldMessenger.of(context).showSnackBar(MySnackbar.mySnackbar('Введите пароли'));
-                        } else if (pass.text != pass2.text) {
-                          ScaffoldMessenger.of(context).showSnackBar(MySnackbar.mySnackbar('Пароли должны совпадать'));
-                        } else if (!state.isLoading) {
-                          context.read<AuthCubit>().signup(login.text.trim(), pass.text.trim());
-                        }
-                      },
-                      child: state.isLoading ? const CircularProgressIndicator() : const Text('Зарегистрироваться'),
-                    );
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextButton(onPressed: () => context.go(SigninScreen.path), child: const Text('Войти'))
-              ],
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      return ElevatedButton(
+                        onPressed: () {
+                          if (login.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.mySnackbar('Введите почту'));
+                          } else if (pass.text.isEmpty || pass2.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.mySnackbar('Введите пароли'));
+                          } else if (pass.text != pass2.text) {
+                            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.mySnackbar('Пароли должны совпадать'));
+                          } else if (!state.isLoading) {
+                            context.read<AuthCubit>().signup(login.text.trim(), pass.text.trim());
+                          }
+                        },
+                        child: state.isLoading ? const CircularProgressIndicator() : const Text('Зарегистрироваться'),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  TextButton(onPressed: () => context.go(SigninScreen.path), child: const Text('Войти'))
+                ],
+              ),
             ),
           ),
         ),

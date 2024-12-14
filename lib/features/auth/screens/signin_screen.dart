@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:task_manager/features/auth/cubit/auth_cubit.dart';
 import 'package:task_manager/features/auth/cubit/auth_state.dart';
+import 'package:task_manager/features/auth/screens/signup_screen.dart';
 import 'package:task_manager/features/tasks/task_screen.dart';
 
 class SigninScreen extends StatefulWidget {
@@ -113,7 +114,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   ),
                   TextButton(
                       onPressed: () {
-                        context.go(SigninScreen.path);
+                        context.go(SignupScreen.path);
                       },
                       child: const Text('Зарегистрироваться'))
                 ],
